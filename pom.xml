@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.luyubo.jenkins</groupId>
+    <artifactId>jenkins-test</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <name>jenkins-test</name>
+    <packaging>war</packaging>
+
+    <properties>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.4</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.0</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+    <build>
+        <!-- 定义项目打包的名字 ，如果不配默认是项目工程名称 -->
+        <!-- 产生的构件的文件名，默认值是${artifactId}-${version}。 -->
+        <finalName>${artifactId}-${version}</finalName>
+
+        <!-- 构建产生的所有文件存放的目录,默认为${basedir}/target，即项目根目录下的target -->
+        <directory>${basedir}/target</directory>
+
+        <!--当项目没有规定目标（Maven2叫做阶段（phase））时的默认值， -->
+        <!--必须跟命令行上的参数相同例如jar:jar，或者与某个阶段（phase）相同例如install、compile等 -->
+        <!--设置为maven打包 相当于命令 mvn package-->
+        <!--还可以设置为 compile编译， install 打包并安装到maven仓库-->
+        <defaultGoal>install</defaultGoal>
+
+        <!-- 构建资源配置 -->
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <!-- 为了解决*.xml文件在java包中的情况，mybatis sql 配置文件的编译问题 -->
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <!-- 如果加了上面的配置，必须加入这个配置，不然resources目录下的东西不会进编译目录 -->
+                    <include>**/*.*</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
+</project>
